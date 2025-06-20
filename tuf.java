@@ -1,6 +1,6 @@
 // Sorting Techniques
 
-// import java.util.*;
+import java.util.*;
 
 // class tuf{
 //     public void swap(int[] arr, int i, int j) {
@@ -133,8 +133,91 @@
 
 //---------------------------------------------------------------------------------------------------------------------------------------------
 
+//Step 1 Lec 4
 class tuf{
-    public static void main(String[] args) {
+    public int CountingDigits(int n){
+        int l=0;
+        while(n>0){
+            n=n/10;
+            l++;
+        }
+        return l;
+    }
+    public int reverse(int x) {
+        int n=0;
+        boolean yn = false;
+        if(x<0){
+            x= -1*x;
+            yn = true;
+        }
+        while(x>0){
+            int rem = x%10;
+            if (n > Integer.MAX_VALUE / 10) return 0;
+            n = n *10 + rem;
+            x/=10;
+        }
+
+        return yn ? n *-1 : n;
+
+    }
+    public boolean palindrome(int x){
+        int n=0, b = x;
+        while(x>0){
+            int rem = x%10;
+            n = n*10 + rem;
+            x/=10;
+        }
+        return b==n;
+    }
+    public int gcd(int a, int b){
+        int res=0;
+        for(int i=1; i<=(a<b?a : b); i++){
+            res = (a % i == 0 && b % i == 0) ? Math.max(res, i) : res;
+        }
+        return res;
+    }
+    public boolean armstrong(int i){
+        int num =i, res=0;
+        int power = 0;
+        while(num>0){
+            power++;
+            num/=10;
+        }
+        num =i;
+        while(num>0){
+            int rem = num%10;
+            res+= (int)Math.pow(rem,power);
+            num/=10;
+        }
         
+        return res==i;
+    }
+    public List<Integer> divisors(int x){
+        ArrayList<Integer> arr = new ArrayList<>();
+        for(int i=1; i<=x; i++){
+            if(x%i == 0) arr.add(i);
+        }
+        return arr;
+    }
+    public boolean prime(int x){
+        for(int i=1; i<x/2; i++ ){
+            if(i==x) continue;
+            if(x%i ==0) return false;
+        }
+        return true;
+    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int i = sc.nextInt();
+        //int j = sc.nextInt();
+        tuf sol = new tuf();
+        //System.out.println(sol.CountingDigits(i));
+        //System.out.println(sol.reverse(i));
+        //System.out.println(sol.palindrome(i));
+        //System.out.println(sol.gcd(i, j));
+        //System.out.println(sol.armstrong(i));
+        //System.out.println(sol.divisors(i));
+        System.out.println(sol.prime(i));
+        sc.close();
     }
 }
