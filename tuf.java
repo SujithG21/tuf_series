@@ -134,90 +134,144 @@ import java.util.*;
 //---------------------------------------------------------------------------------------------------------------------------------------------
 
 //Step 1 Lec 4
-class tuf{
-    public int CountingDigits(int n){
-        int l=0;
-        while(n>0){
-            n=n/10;
-            l++;
-        }
-        return l;
-    }
-    public int reverse(int x) {
-        int n=0;
-        boolean yn = false;
-        if(x<0){
-            x= -1*x;
-            yn = true;
-        }
-        while(x>0){
-            int rem = x%10;
-            if (n > Integer.MAX_VALUE / 10) return 0;
-            n = n *10 + rem;
-            x/=10;
-        }
+// class tuf{
+//     public int CountingDigits(int n){
+//         int l=0;
+//         while(n>0){
+//             n=n/10;
+//             l++;
+//         }
+//         return l;
+//     }
+//     public int reverse(int x) {
+//         int n=0;
+//         boolean yn = false;
+//         if(x<0){
+//             x= -1*x;
+//             yn = true;
+//         }
+//         while(x>0){
+//             int rem = x%10;
+//             if (n > Integer.MAX_VALUE / 10) return 0;
+//             n = n *10 + rem;
+//             x/=10;
+//         }
 
-        return yn ? n *-1 : n;
+//         return yn ? n *-1 : n;
 
-    }
-    public boolean palindrome(int x){
-        int n=0, b = x;
-        while(x>0){
-            int rem = x%10;
-            n = n*10 + rem;
-            x/=10;
-        }
-        return b==n;
-    }
-    public int gcd(int a, int b){
-        int res=0;
-        for(int i=1; i<=(a<b?a : b); i++){
-            res = (a % i == 0 && b % i == 0) ? Math.max(res, i) : res;
-        }
-        return res;
-    }
-    public boolean armstrong(int i){
-        int num =i, res=0;
-        int power = 0;
-        while(num>0){
-            power++;
-            num/=10;
-        }
-        num =i;
-        while(num>0){
-            int rem = num%10;
-            res+= (int)Math.pow(rem,power);
-            num/=10;
-        }
+//     }
+//     public boolean palindrome(int x){
+//         int n=0, b = x;
+//         while(x>0){
+//             int rem = x%10;
+//             n = n*10 + rem;
+//             x/=10;
+//         }
+//         return b==n;
+//     }
+//     public int gcd(int a, int b){
+//         int res=0;
+//         for(int i=1; i<=(a<b?a : b); i++){
+//             res = (a % i == 0 && b % i == 0) ? Math.max(res, i) : res;
+//         }
+//         return res;
+//     }
+//     public boolean armstrong(int i){
+//         int num =i, res=0;
+//         int power = 0;
+//         while(num>0){
+//             power++;
+//             num/=10;
+//         }
+//         num =i;
+//         while(num>0){
+//             int rem = num%10;
+//             res+= (int)Math.pow(rem,power);
+//             num/=10;
+//         }
         
-        return res==i;
+//         return res==i;
+//     }
+//     public List<Integer> divisors(int x){
+//         ArrayList<Integer> arr = new ArrayList<>();
+//         for(int i=1; i<=x; i++){
+//             if(x%i == 0) arr.add(i);
+//         }
+//         return arr;
+//     }
+//     public boolean prime(int x){
+//         for(int i=1; i<x/2; i++ ){
+//             if(i==x) continue;
+//             if(x%i ==0) return false;
+//         }
+//         return true;
+//     }
+//     public static void main(String[] args) {
+//         Scanner sc = new Scanner(System.in);
+//         int i = sc.nextInt();
+//         //int j = sc.nextInt();
+//         tuf sol = new tuf();
+//         //System.out.println(sol.CountingDigits(i));
+//         //System.out.println(sol.reverse(i));
+//         //System.out.println(sol.palindrome(i));
+//         //System.out.println(sol.gcd(i, j));
+//         //System.out.println(sol.armstrong(i));
+//         //System.out.println(sol.divisors(i));
+//         System.out.println(sol.prime(i));
+//         sc.close();
+//     }
+// }
+//---------------------------------------------------------------------------------------------------------------------------------------------
+
+class tuf{
+    public int recsum(int a){
+        if(a==0) return 0; 
+        return a + recsum(a-1);
     }
-    public List<Integer> divisors(int x){
-        ArrayList<Integer> arr = new ArrayList<>();
-        for(int i=1; i<=x; i++){
-            if(x%i == 0) arr.add(i);
-        }
-        return arr;
+    public int recfac(int a){
+        if(a <= 1) return 1;
+        return a * recfac(a-1);
     }
-    public boolean prime(int x){
-        for(int i=1; i<x/2; i++ ){
-            if(i==x) continue;
-            if(x%i ==0) return false;
+    public int[] recrevarr(int a, int arr[], int i){
+        if(i>=a/2) return arr;
+        if(i<a/2){
+            int temp = arr[i];
+            arr[i] = arr[a-1-i]; 
+            arr[a-1-i] = temp; 
         }
-        return true;
+        return recrevarr(a, arr, i+1);
+    }
+    public boolean recstrpali(String str, String str1,  int i){
+        if(i < 0){
+        return str1.equals(str);
+    }
+        str1+=str.charAt(i);
+        return recstrpali(str, str1,i-1);
+    }
+    public int recfib(int i){
+        if(i <= 1) return i;
+        return recfib(i-1) + recfib(i-2);
     }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int i = sc.nextInt();
-        //int j = sc.nextInt();
+        int a = sc.nextInt();
+        //String str = sc.nextLine();
         tuf sol = new tuf();
-        //System.out.println(sol.CountingDigits(i));
-        //System.out.println(sol.reverse(i));
-        //System.out.println(sol.palindrome(i));
-        //System.out.println(sol.gcd(i, j));
-        //System.out.println(sol.armstrong(i));
-        //System.out.println(sol.divisors(i));
-        System.out.println(sol.prime(i));
+        //System.out.println(sol.recsum(a));
+        //System.out.println(sol.recfac(a));
+        // int[] arr = new int[a];
+        // for(int i=0; i<a; i++){
+        //     arr[i] = sc.nextInt();
+        // }
+        // arr = sol.recrevarr(a, arr, 0);
+        // for(int i:arr){
+        //     System.out.print(i + " ");
+        // }
+        //System.out.println(sol.strpali(str));
+        //System.out.println(sol.recstrpali(str, "", str.length()-1));
+        // for(int i = 0; i <= a; i++){
+        //     System.out.print(sol.recfib(i) + " ");
+        // }
         sc.close();
     }
 }
